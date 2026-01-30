@@ -18,7 +18,10 @@ app.use(morgan('dev'));
 
 // Routes
 const equipmentRoutes = require('./src/routes/equipmentRoutes');
+const maintenanceRoutes = require('./src/routes/maintenanceRoutes');
+
 app.use('/api/equipment', equipmentRoutes);
+app.use('/api/maintenance', maintenanceRoutes);
 
 // Basic route for testing
 app.get('/', (req, res) => {
