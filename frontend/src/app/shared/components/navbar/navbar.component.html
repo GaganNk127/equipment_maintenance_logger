@@ -1,0 +1,18 @@
+<nav class="navbar">
+    <div class="navbar-container">
+        <a routerLink="/" class="navbar-brand">
+            <span class="brand-icon">🔧</span> MaintenanceLogger
+        </a>
+
+        <button class="navbar-toggle" (click)="toggleMenu()" aria-label="Toggle navigation">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+        </button>
+
+        <div class="navbar-links" [class.active]="isMenuOpen">
+            <a routerLink="/equipment" routerLinkActive="active" (click)="isMenuOpen = false">Equipment List</a>
+            <a routerLink="/register" routerLinkActive="active" (click)="isMenuOpen = false">Register New</a>
+        </div>
+    </div>
+</nav>

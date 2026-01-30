@@ -1,0 +1,6 @@
+main {
+    padding-bottom: 40px;
+    /* Space for footer if needed */
+    min-height: calc(100vh - 60px);
+    /* Full height minus navbar */
+}
