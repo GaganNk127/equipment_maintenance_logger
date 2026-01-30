@@ -16,6 +16,10 @@ app.use(cors());
 app.use(helmet());
 app.use(morgan('dev'));
 
+// Routes
+const equipmentRoutes = require('./src/routes/equipmentRoutes');
+app.use('/api/equipment', equipmentRoutes);
+
 // Basic route for testing
 app.get('/', (req, res) => {
   res.json({ message: 'Equipment Maintenance Logger API is running' });
