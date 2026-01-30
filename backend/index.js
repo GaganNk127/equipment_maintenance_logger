@@ -7,7 +7,7 @@ const morgan = require('morgan');
 
 const app = express();
 const PORT = process.env.PORT || 5000;
-const MONGODB_URI = process.env.MONGODB_URI || 'mongodb+srv://gagannaik127:Gagan@2003@cluster0.nkqvrfo.mongodb.net/?appName=Cluster0';
+const MONGODB_URI = process.env.MONGODB_URI
 
 // Middleware
 app.use(express.json());
