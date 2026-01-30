@@ -1,0 +1,38 @@
+<div class="container">
+    <div class="header-actions">
+        <div *ngIf="equipment">
+            <h2>History: {{ equipment.name }}</h2>
+            <span class="subtitle">Serial: {{ equipment.serialNumber }}</span>
+        </div>
+        <div *ngIf="!equipment && !isLoading">
+            <h2>Maintenance History</h2>
+        </div>
+
+        <a routerLink="/equipment" class="btn btn-secondary">
+            <span>&larr; Back to List</span>
+        </a>
+    </div>
+
+    <div *ngIf="errorMessage" class="alert alert-danger">{{ errorMessage }}</div>
+
+    <div *ngIf="isLoading" class="loading-state">
+        <p>Loading history...</p>
+    </div>
+
+    <div *ngIf="!isLoading && logs.length === 0" class="empty-state">
+        <p>No maintenance logs found for this equipment.</p>
+    </div>
+
+    <div class="timeline" *ngIf="!isLoading && logs.length > 0">
+        <div class="timeline-item" *ngFor="let log of logs">
+            <div class="timeline-date">
+                {{ log.serviceDate | date:'mediumDate' }}
+            </div>
+            <div class="timeline-content card">
+                <h4>Maintenance Performed</h4>
+                <p>{{ log.description }}</p>
+                <span class="text-muted">Logged on {{ log.createdAt | date:'short' }}</span>
+            </div>
+        </div>
+    </div>
+</div>

@@ -10,6 +10,20 @@
 
             <form [formGroup]="maintenanceForm" (ngSubmit)="onSubmit()">
                 <div class="form-group">
+                    <label for="equipmentId" class="form-label">Select Equipment</label>
+                    <select id="equipmentId" class="form-control" formControlName="equipmentId">
+                        <option value="" disabled>Select Equipment</option>
+                        <option *ngFor="let item of equipmentList" [value]="item._id">{{ item.name }} ({{
+                            item.serialNumber }})</option>
+                    </select>
+                    <div *ngIf="maintenanceForm.get('equipmentId')?.invalid && (maintenanceForm.get('equipmentId')?.dirty || maintenanceForm.get('equipmentId')?.touched)"
+                        class="text-danger">
+                        <small *ngIf="maintenanceForm.get('equipmentId')?.errors?.['required']">Equipment is
+                            required.</small>
+                    </div>
+                </div>
+
+                <div class="form-group">
                     <label for="description" class="form-label">Description</label>
                     <textarea id="description" class="form-control" formControlName="description" rows="3"></textarea>
                     <div *ngIf="maintenanceForm.get('description')?.invalid && (maintenanceForm.get('description')?.dirty || maintenanceForm.get('description')?.touched)"

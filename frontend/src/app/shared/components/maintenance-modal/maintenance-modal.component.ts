@@ -1,7 +1,8 @@
-import { Component, Input, Output, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnChanges, SimpleChanges, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { EquipmentService } from '../../../core/services/equipment.service';
+import { Equipment } from '../../../core/models/equipment.model';
 
 @Component({
     selector: 'app-maintenance-modal',
@@ -10,13 +11,14 @@ import { EquipmentService } from '../../../core/services/equipment.service';
     templateUrl: './maintenance-modal.component.html',
     styleUrls: ['./maintenance-modal.component.css']
 })
-export class MaintenanceModalComponent implements OnChanges {
+export class MaintenanceModalComponent implements OnChanges, OnInit {
     @Input() equipmentId: string | null = null;
     @Input() isOpen = false;
     @Output() close = new EventEmitter<void>();
     @Output() save = new EventEmitter<void>();
 
     maintenanceForm: FormGroup;
+    equipmentList: Equipment[] = [];
     isLoading = false;
     errorMessage = '';
 
@@ -25,20 +27,40 @@ export class MaintenanceModalComponent implements OnChanges {
         private equipmentService: EquipmentService
     ) {
         this.maintenanceForm = this.fb.group({
+            equipmentId: ['', Validators.required],
             description: ['', Validators.required],
-            serviceDate: [new Date().toISOString().split('T')[0], Validators.required] // Default to today
+            serviceDate: [new Date().toISOString().split('T')[0], Validators.required]
         });
+    }
+
+    ngOnInit() {
+        this.loadEquipmentList();
     }
 
     ngOnChanges(changes: SimpleChanges): void {
         if (changes['isOpen'] && changes['isOpen'].currentValue === true) {
-            // Reset form when opened
-            this.maintenanceForm.reset({
-                description: '',
-                serviceDate: new Date().toISOString().split('T')[0]
-            });
+            if (this.equipmentId) {
+                this.maintenanceForm.patchValue({
+                    equipmentId: this.equipmentId,
+                    description: '',
+                    serviceDate: new Date().toISOString().split('T')[0]
+                });
+            } else {
+                this.maintenanceForm.reset({
+                    equipmentId: '',
+                    description: '',
+                    serviceDate: new Date().toISOString().split('T')[0]
+                });
+            }
             this.errorMessage = '';
         }
+    }
+
+    loadEquipmentList() {
+        this.equipmentService.getEquipment().subscribe({
+            next: (data) => this.equipmentList = data,
+            error: (err) => console.error('Failed to load equipment for dropdown', err)
+        });
     }
 
     onClose() {
@@ -46,19 +68,14 @@ export class MaintenanceModalComponent implements OnChanges {
     }
 
     onSubmit() {
-        if (this.maintenanceForm.valid && this.equipmentId) {
+        if (this.maintenanceForm.valid) {
             this.isLoading = true;
             this.errorMessage = '';
 
-            const logData = {
-                equipmentId: this.equipmentId,
-                ...this.maintenanceForm.value
-            };
-
-            this.equipmentService.createMaintenanceLog(logData).subscribe({
+            this.equipmentService.createMaintenanceLog(this.maintenanceForm.value).subscribe({
                 next: () => {
                     this.isLoading = false;
-                    this.save.emit(); // Notify parent to refresh list
+                    this.save.emit();
                     this.onClose();
                 },
                 error: (err) => {

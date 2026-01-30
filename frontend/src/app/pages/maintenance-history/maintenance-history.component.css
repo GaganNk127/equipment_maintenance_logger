@@ -1,0 +1,144 @@
+.header-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 30px;
+}
+
+.subtitle {
+    color: var(--secondary-light);
+    font-size: 0.95rem;
+    font-weight: 500;
+}
+
+.btn-secondary {
+    background-color: transparent;
+    color: var(--secondary-color);
+    border: 1px solid #cfd8dc;
+    font-size: 0.9rem;
+    padding: 8px 16px;
+}
+
+.btn-secondary:hover {
+    background-color: #ECEFF1;
+    border-color: #b0bec5;
+}
+
+/* Timeline Styles */
+.timeline {
+    position: relative;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.timeline::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 20px;
+    /* Adjust based on date width */
+    width: 2px;
+    background: #cfd8dc;
+}
+
+.timeline-item {
+    position: relative;
+    margin-bottom: 30px;
+    padding-left: 50px;
+    /* Space for line and dot */
+}
+
+.timeline-item::after {
+    content: '';
+    position: absolute;
+    left: 14px;
+    top: 5px;
+    /* Adjust to align with date */
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: var(--primary-color);
+    border: 3px solid #fff;
+    box-shadow: 0 0 0 1px #cfd8dc;
+}
+
+.timeline-date {
+    position: absolute;
+    left: -90px;
+    top: 0;
+    width: 100px;
+    text-align: right;
+    font-weight: 600;
+    color: var(--secondary-color);
+    display: none;
+    /* Hidden on mobile, handled differently maybe */
+}
+
+/* Redesign timeline for responsiveness */
+.timeline {
+    padding-left: 20px;
+}
+
+.timeline-item {
+    padding-left: 30px;
+}
+
+.timeline-date {
+    position: relative;
+    left: auto;
+    text-align: left;
+    margin-bottom: 8px;
+    color: var(--primary-color);
+    display: block;
+}
+
+.timeline-content {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    border: 1px solid #eee;
+}
+
+.timeline-content h4 {
+    margin-bottom: 8px;
+    font-size: 1.1rem;
+    color: var(--text-color);
+}
+
+.timeline-content p {
+    color: var(--secondary-light);
+    line-height: 1.5;
+    margin-bottom: 12px;
+}
+
+.text-muted {
+    font-size: 0.8rem;
+    color: #b0bec5;
+    display: block;
+    text-align: right;
+}
+
+@media (min-width: 768px) {
+    .timeline {
+        padding-left: 120px;
+    }
+
+    .timeline::before {
+        left: 120px;
+    }
+
+    .timeline-item::after {
+        left: 114px;
+    }
+
+    .timeline-date {
+        position: absolute;
+        left: -120px;
+        width: 100px;
+        top: 5px;
+        text-align: right;
+        margin-bottom: 0;
+    }
+}
