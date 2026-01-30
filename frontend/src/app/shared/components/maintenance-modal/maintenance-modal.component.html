@@ -1,0 +1,42 @@
+<div class="modal-overlay" *ngIf="isOpen" (click)="onClose()">
+    <div class="modal-container" (click)="$event.stopPropagation()">
+        <div class="modal-header">
+            <h3>Log Maintenance</h3>
+            <button class="close-btn" (click)="onClose()">&times;</button>
+        </div>
+
+        <div class="modal-body">
+            <div *ngIf="errorMessage" class="alert alert-danger">{{ errorMessage }}</div>
+
+            <form [formGroup]="maintenanceForm" (ngSubmit)="onSubmit()">
+                <div class="form-group">
+                    <label for="description" class="form-label">Description</label>
+                    <textarea id="description" class="form-control" formControlName="description" rows="3"></textarea>
+                    <div *ngIf="maintenanceForm.get('description')?.invalid && (maintenanceForm.get('description')?.dirty || maintenanceForm.get('description')?.touched)"
+                        class="text-danger">
+                        <small *ngIf="maintenanceForm.get('description')?.errors?.['required']">Description is
+                            required.</small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="serviceDate" class="form-label">Service Date</label>
+                    <input type="date" id="serviceDate" class="form-control" formControlName="serviceDate">
+                    <div *ngIf="maintenanceForm.get('serviceDate')?.invalid && (maintenanceForm.get('serviceDate')?.dirty || maintenanceForm.get('serviceDate')?.touched)"
+                        class="text-danger">
+                        <small *ngIf="maintenanceForm.get('serviceDate')?.errors?.['required']">Date is
+                            required.</small>
+                    </div>
+                </div>
+
+                <div class="modal-actions">
+                    <button type="button" class="btn btn-secondary" (click)="onClose()">Cancel</button>
+                    <button type="submit" class="btn btn-primary" [disabled]="maintenanceForm.invalid || isLoading">
+                        <span *ngIf="isLoading">Saving...</span>
+                        <span *ngIf="!isLoading">Save Log</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

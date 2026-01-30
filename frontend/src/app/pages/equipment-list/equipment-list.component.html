@@ -30,7 +30,7 @@
             <tbody>
                 <tr *ngFor="let item of equipmentList">
                     <td>
-                        <a [routerLink]="['/equipment', item._id]" class="equipment-link">
+                        <a class="equipment-link pointer">
                             {{ item.name }}
                         </a>
                     </td>
@@ -42,12 +42,16 @@
                         </span>
                     </td>
                     <td>
-                        <a class="btn-sm btn-outline" [routerLink]="['/maintenance', item._id]">
+                        <button class="btn btn-sm btn-outline" (click)="openMaintenanceModal(item._id!)">
                             Log Maintenance
-                        </a>
+                        </button>
                     </td>
                 </tr>
             </tbody>
         </table>
     </div>
+
+    <app-maintenance-modal [isOpen]="isModalOpen" [equipmentId]="selectedEquipmentId" (close)="closeMaintenanceModal()"
+        (save)="onMaintenanceSaved()">
+    </app-maintenance-modal>
 </div>
