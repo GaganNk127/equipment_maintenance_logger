@@ -1,4 +1,4 @@
 export const environment = {
     production: true,
-    apiUrl: '/api' // Relative path for proxy or same-domain deployment
+    apiUrl: 'https://equipment-maintainance-logger-api.onrender.com/api' // Replace with your actual Render backend URL
 };
