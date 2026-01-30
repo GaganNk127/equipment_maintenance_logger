@@ -1,0 +1,32 @@
+/* Component specific styles */
+.container {
+    max-width: 500px;
+    background: var(--surface-color);
+    padding: 40px;
+    border-radius: 16px;
+    box-shadow: 0 10px 25px rgba(55, 71, 79, 0.1);
+    /* Subtle charcoal shadow */
+    margin-top: 60px;
+}
+
+h2 {
+    text-align: center;
+    margin-bottom: 30px;
+    color: var(--secondary-color);
+    font-size: 1.75rem;
+    letter-spacing: -0.5px;
+}
+
+.form-label {
+    color: var(--secondary-light);
+}
+
+.btn-primary {
+    width: 100%;
+    padding: 14px;
+    font-size: 1.1rem;
+    margin-top: 10px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    font-weight: 600;
+}

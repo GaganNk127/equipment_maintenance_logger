@@ -1,0 +1,42 @@
+<div class="container">
+    <h2>Register New Equipment</h2>
+
+    <div *ngIf="successMessage" class="alert alert-success">{{ successMessage }}</div>
+    <div *ngIf="errorMessage" class="alert alert-danger">{{ errorMessage }}</div>
+
+    <form [formGroup]="equipmentForm" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+            <label for="name" class="form-label">Equipment Name</label>
+            <input type="text" id="name" class="form-control" formControlName="name">
+            <div *ngIf="equipmentForm.get('name')?.invalid && (equipmentForm.get('name')?.dirty || equipmentForm.get('name')?.touched)"
+                class="text-danger">
+                <small *ngIf="equipmentForm.get('name')?.errors?.['required']">Name is required.</small>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="serialNumber" class="form-label">Serial Number</label>
+            <input type="text" id="serialNumber" class="form-control" formControlName="serialNumber">
+            <div *ngIf="equipmentForm.get('serialNumber')?.invalid && (equipmentForm.get('serialNumber')?.dirty || equipmentForm.get('serialNumber')?.touched)"
+                class="text-danger">
+                <small *ngIf="equipmentForm.get('serialNumber')?.errors?.['required']">Serial Number is
+                    required.</small>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="lastServiceDate" class="form-label">Last Service Date</label>
+            <input type="date" id="lastServiceDate" class="form-control" formControlName="lastServiceDate">
+            <div *ngIf="equipmentForm.get('lastServiceDate')?.invalid && (equipmentForm.get('lastServiceDate')?.dirty || equipmentForm.get('lastServiceDate')?.touched)"
+                class="text-danger">
+                <small *ngIf="equipmentForm.get('lastServiceDate')?.errors?.['required']">Last Service Date is
+                    required.</small>
+            </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary" [disabled]="equipmentForm.invalid || isLoading">
+            <span *ngIf="isLoading">Saving...</span>
+            <span *ngIf="!isLoading">Register Equipment</span>
+        </button>
+    </form>
+</div>
